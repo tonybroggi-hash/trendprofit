@@ -1,0 +1,222 @@
+<!--
+  Файл: index.html
+  Назначение: одностраничный адаптивный сайт для заработка на рекламе / партнерских ссылках.
+  Что внутри:
+    - Чистый HTML/CSS/JS в одном файле
+    - Места-плейсхолдеры для вставки рекламного кода (Google AdSense, партнерки и т.п.)
+    - Секция популярных товаров, карточки продуктов, кнопки с призывом (вставьте свои партнерские ссылки)
+    - SEO meta, Open Graph
+    - Простейшая контактная форма (mailto) и подписка (placeholder)
+
+  Как публиковать бесплатно (рекомендации):
+    1) GitHub Pages (рекомендуется): создайте репозиторий, загрузите этот index.html в корень ветки main или gh-pages
+       - Преимущество: можно хостить чистый HTML/JS/CSS
+       - Инструкция: https://docs.github.com/en/pages
+    2) Firebase Hosting (тоже бесплатный уровень): требует Firebase CLI, но даёт гибкость
+    3) Google Sites: НЕ поддерживает загрузку raw HTML, можно встраивать фрагменты через iframe, но гибкость ограничена.
+
+  Важно: Для показа рекламы Google AdSense вам нужно зарегистрироваться и вставить их скрипт в <head> и соответствующие блоки в нужных местах.
+
+  Если хотите, могу:
+    - адаптировать дизайн под вашу нишу;
+    - вставить реальные партнерские ссылки и тексты;
+    - подготовить репозиторий GitHub и показать точные шаги публикации.
+-->
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Халявные предложения — выгодные товары и реклама</title>
+  <meta name="description" content="Лучшие предложения и обзоры популярных товаров — собраны для вас. Зарабатываем на рекламе и делимся скидками.">
+  <meta property="og:title" content="Выгодные предложения — скидки и обзоры">
+  <meta property="og:description" content="Лучшие предложения и обзоры популярных товаров. Скидки, купоны и партнёрские ссылки.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#1F2937">
+
+  <!-- TODO: вставьте свой рекламный/аналитический код сюда (например, Google AdSense или Google Analytics) -->
+  <!-- Пример (только после одобрения AdSense):
+  <script data-ad-client="ca-pub-XXXXXXXXXXXX" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  -->
+
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#ff7a18}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Inter var,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071024 0%,#071024 60%,#071a2a 100%);color:#e6eef8;line-height:1.5}
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#ff7a18,#ffbf69);display:flex;align-items:center;justify-content:center;font-weight:700;color:#071024}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+    .hero{display:flex;gap:24px;align-items:center;padding:28px 0}
+    .hero .left{flex:1}
+    .hero h1{margin:0;font-size:36px}
+    .hero p{color:var(--muted);margin-top:8px}
+    .cta{margin-top:16px}
+    .btn{display:inline-block;padding:10px 18px;border-radius:10px;background:var(--accent);color:#061028;text-decoration:none;font-weight:600}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
+    .card{background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;box-shadow:0 4px 20px rgba(2,6,23,0.6)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .card h3{margin:10px 0 6px 0;font-size:18px}
+    .price{font-weight:700}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* ad placeholder */
+    .ad{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px dashed rgba(255,255,255,0.06);padding:16px;border-radius:10px;text-align:center;color:var(--muted)}
+
+    footer{margin-top:34px;padding:24px 0;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap}
+
+    /* responsive tweaks */
+    @media (max-width:720px){.hero{flex-direction:column;align-items:flex-start}.hero h1{font-size:28px}}
+
+    /* small utility */
+    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px;color:var(--muted)}
+    .product-actions{display:flex;gap:8px;margin-top:8px}
+    .btn-outline{display:inline-block;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);color:var(--muted);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">ZR</div>
+        <div>
+          <div style="font-weight:700">ЗаработокРекламы</div>
+          <div class="muted" style="font-size:13px">Скидки, предложения, партнёрки</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#products">Товары</a>
+        <a href="#how">Как это работает</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="left">
+        <span class="tag">Лучшие предложения</span>
+        <h1>Популярные товары и выгодные партнерские предложения</h1>
+        <p>Мы собираем лучшие скидки и обзоры популярных товаров — оставляйте свой e-mail, переходите по ссылке и покупайте с выгодой. Зарабатываем на рекламе и делимся скидками.</p>
+        <div class="cta">
+          <a class="btn" href="#products">Смотреть товары</a>
+          <a class="btn-outline" href="#how">Как это работает</a>
+        </div>
+
+        <!-- AD PLACEHOLDER: горизонтальный баннер в хедере -->
+        <div style="margin-top:18px">
+          <div class="ad">[Здесь вставьте код рекламного блока / баннера — AdSense / партнерка]</div>
+        </div>
+      </div>
+
+      <div style="width:360px">
+        <img src="https://images.unsplash.com/photo-1542223616-4d9e1b7d7fef?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="deals" style="width:100%;border-radius:12px;object-fit:cover;height:240px;filter:contrast(1) brightness(.95)">
+      </div>
+    </section>
+
+    <section id="products">
+      <h2 style="margin-top:18px">Популярные товары</h2>
+      <p class="muted">Кликните на товар для перехода — вставьте свои партнёрские ссылки в кнопки "Купить".</p>
+
+      <div class="grid">
+        <!-- Пример карточки товара: скопируйте и редактируйте -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1606813902876-5c6f9c1c6c7f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Товар 1">
+          <h3>Популярный гаджет X</h3>
+          <div class="muted">Краткое описание — почему стоит купить.</div>
+          <div style="margin-top:8px" class="price">$49.99 <span class="muted" style="font-weight:400">(скидка!)</span></div>
+          <div class="product-actions">
+            <!-- Вставьте сюда партнерскую ссылку в href -->
+            <a class="btn" href="#" onclick="return alert('Замените # на вашу партнерскую ссылку');">Купить</a>
+            <a class="btn-outline" href="#">Обзор</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Товар 2">
+          <h3>Аксессуар Y</h3>
+          <div class="muted">Короткое описание.</div>
+          <div class="product-actions">
+            <a class="btn" href="#" onclick="return alert('Замените # на вашу партнерскую ссылку');">Купить</a>
+            <a class="btn-outline" href="#">Обзор</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1526178613653-2e40b2229b8d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Товар 3">
+          <h3>Товар Z — Хит</h3>
+          <div class="muted">Короткое описание, преимущества.</div>
+          <div class="product-actions">
+            <a class="btn" href="#" onclick="return alert('Замените # на вашу партнерскую ссылку');">Купить</a>
+            <a class="btn-outline" href="#">Обзор</a>
+          </div>
+        </article>
+
+        <!-- Добавьте больше карточек при необходимости -->
+      </div>
+
+      <!-- AD PLACEHOLDER: квадратный блок слева/справа от списка товаров. Идеально для рекламных сетей. -->
+      <div style="margin-top:16px">
+        <div class="ad">[Рекламный блок: вставьте код сети или изображение партнерского баннера]</div>
+      </div>
+    </section>
+
+    <section id="how" style="margin-top:26px">
+      <h2>Как это работает</h2>
+      <ol class="muted" style="padding-left:18px">
+        <li>Мы публикуем подборки популярных товаров и выгодные предложения.</li>
+        <li>Часть товаров содержит партнёрские ссылки — при покупке вы переходите по ним.</li>
+        <li>Также на сайте размещаются рекламные блоки (AdSense, тизерные сети и т. п.).</li>
+        <li>Вы получаете прозрачный обзор, а мы — часть дохода от рекламы.</li>
+      </ol>
+    </section>
+
+    <section id="subscribe" style="margin-top:22px;">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px">
+          <h3>Подписка на скидки</h3>
+          <p class="muted">Оставьте e-mail, чтобы получать лучшие предложения.</p>
+        </div>
+        <div style="min-width:320px">
+          <!-- Простая форма — требует бекенд для реальной подписки. Можно подключить Mailchimp/ConvertKit/Google Forms -->
+          <form onsubmit="alert('Это демо-форма. Чтобы сохранить e-mail, подключите Mailchimp или сервер.');return false;">
+            <input type="email" placeholder="Ваш e-mail" required style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);width:260px;background:transparent;color:inherit">
+            <button class="btn" style="margin-left:8px">Подписаться</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:26px">
+      <h2>Контакты</h2>
+      <p class="muted">Есть вопросы или хотите разместить рекламу? Пишите:</p>
+      <p style="margin:8px 0"><a class="btn-outline" href="mailto:you@example.com">you@example.com</a></p>
+      <div style="margin-top:12px">
+        <div class="ad">[Место для рекламного блока в футере — вставьте код или партнерский баннер]</div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> ЗаработокРекламы — все права защищены</div>
+      <div class="muted">Создано автоматически — при необходимости я могу доработать дизайн и добавить реальные партнерские ссылки.</div>
+    </footer>
+  </div>
+
+  <script>
+    // простые скрипты
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // совет: заменить все href="#" на реальные партнерские ссылки. Текст кнопки можно менять на "Купить со скидкой" или "Перейти к предложению".
+
+    // функция быстрой вставки рекламного блока (пример)
+    function insertAd(containerSelector, html) {
+      var el = document.querySelector(containerSelector);
+      if (el) el.innerHTML = html;
+    }
+
+    // пример использования (раскомментируйте и вставьте свой код):
+    // insertAd('.ad', '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="YYYYYYYY" data-ad-format="auto"></ins>');
+  </script>
+</body>
+</html>
